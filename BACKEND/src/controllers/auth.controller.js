@@ -1,5 +1,6 @@
 const userModel = require('../models/user.model');
 const jwt = require('jsonwebtoken');
+const bcrypt=require('bcryptjs');
 
 
 
@@ -24,13 +25,15 @@ async function registeruser(req, res) {
         return res.status(409).json({ messege: "user already exist" })
     }
 
+const hash=await bcrypt.hash(password,10);//req.body se ane wale pass ko hash krrte hain
+
     const user = await userModel.create({
         username,
         email,
         password,
         role
 
-    })
+    });
 
     const token = jwt.sign({
         id:user._id,
@@ -47,7 +50,7 @@ async function registeruser(req, res) {
             email:user.email,
             role:user.role,
         }
-    })
+    });
 
     
     

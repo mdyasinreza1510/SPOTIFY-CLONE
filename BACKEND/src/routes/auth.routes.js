@@ -1,5 +1,5 @@
 const express = require ('express');
-
+const authcontroller=require('../controllers/auth.controller')
 
 
 
@@ -7,8 +7,8 @@ const express = require ('express');
 
 const router = express.Router();
 
-
-router.post('/register',)
+            //api
+router.post('/register',authcontroller.userRegister)
 
 
 

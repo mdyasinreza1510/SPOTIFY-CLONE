@@ -8,4 +8,6 @@
 
 4) THEN WE USE THE PASSWORD HASHING 
     - to use hasing we use a package "bcryptjs"
-5) THEN WE GO TO THE CONTROLLERS AND MAKE A VAR TO USE THE BCRYPT
+5) THEN WE GO TO THE CONTROLLERS AND MAKE A VAR TO USE THE B-CRYPT then we pass the password parametr in it.
+
+<h1>USER LOGIN </h1>

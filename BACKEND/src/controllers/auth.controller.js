@@ -8,9 +8,8 @@ const bcrypt=require('bcryptjs');
 
 
 
-
-async function registeruser(req, res) {
-
+async function userRegister(req, res) {
+    
     const { username, email, password, role = "user" } = req.body;
 
     const useralreadyexist = await userModel.findOne({
@@ -27,10 +26,12 @@ async function registeruser(req, res) {
 
 const hash=await bcrypt.hash(password,10);//req.body se ane wale pass ko hash krrte hain
 
+
+
     const user = await userModel.create({
         username,
         email,
-        password,
+        password:hash,
         role
 
     });
@@ -53,13 +54,11 @@ const hash=await bcrypt.hash(password,10);//req.body se ane wale pass ko hash kr
     });
 
     
-    
 
 
-
-
-    
 }
 
 
-module.exports= { registeruser }
+
+
+module.exports= { userRegister }

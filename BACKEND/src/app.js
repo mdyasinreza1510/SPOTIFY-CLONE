@@ -5,8 +5,8 @@ const authRoutes= require ('./routes/auth.routes')
 
 
 const app = express();
-app.use(express.json());//taki req.body se data aaske
 app.use(cookieParser());//taki cookies me data save krske
+app.use(express.json());//taki req.body se data aaske
 
 
 
@@ -14,8 +14,9 @@ app.use(cookieParser());//taki cookies me data save krske
 
 
 
-app.use('api/auth/',authRoutes);
+        //api defination
+app.use("/api/auth/",authRoutes);
 
 
 
-module.exports = app;
+module.exports = app

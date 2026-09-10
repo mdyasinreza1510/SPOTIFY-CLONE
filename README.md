@@ -14,18 +14,18 @@
 
 1) IN USER LOGIN WERE DEVLOPING A FEATURE WHERE USER CAN CAN VIA EMAIL/USERNAME/PHONE NO.
 2) WE'LL WRITE A QUERY WHERE IF ANY ONE OF THE CREDENTIAL IS PASSED THE DB USE THEM TO LOGIN THE USER 
-3) ```javascript
-query={
+3) ```javascript 
+        query={
     $or:[
         {username:undefined}
         {email:mamta@saviour.com}
     ]
 }
-user1 ->
-username = modi
-email=modi@chor.com
 
-user 2 ->
-username = mamtabanerjee
-email=mamta@saviour.com
-```
+        user1 ->
+        username = modi
+        email=modi@chor.com
+
+        user 2 ->
+        username = mamtabanerjee
+        email=mamta@saviour.com

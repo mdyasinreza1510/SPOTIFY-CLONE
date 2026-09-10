@@ -14,18 +14,28 @@
 
 1) IN USER LOGIN WERE DEVLOPING A FEATURE WHERE USER CAN CAN VIA EMAIL/USERNAME/PHONE NO.
 2) WE'LL WRITE A QUERY WHERE IF ANY ONE OF THE CREDENTIAL IS PASSED THE DB USE THEM TO LOGIN THE USER 
-3) ```javascript 
-        query={
-    $or:[
+```javascript 
+query={
+    //ye OR operator database se same email/phone/username leke ayega jo bhi user ne provide kiya hai aur database me search krkega . yaha pe jaise user2 ka email match hogya to wo uss credwntial se login krdega 
+$or:[
         {username:undefined}
         {email:mamta@saviour.com}
     ]
 }
+user1 ->
+username = modi
+email=modi@chor.com
 
-        user1 ->
-        username = modi
-        email=modi@chor.com
+user 2 ->
+username = mamtabanerjee
+email=mamta@saviour.com
+```
+3) HERE WE COMAPRE THE PASSWORD GIVEN BY THEW USER AND THE PASSWORD SAVED IN THE DATABASE IF THEY ARE SAME THEN LOGIN HAOPPENS. THIS BCRYPT FIRST CONVERT THE PAASWORD INTO HASH THEN COMPARES FORM THE SAVED HASEHD PASSWORD 
+```javascript
+const ispasswordvalid =await bcrypt.compare(password, user.password);
+```
 
-        user 2 ->
-        username = mamtabanerjee
-        email=mamta@saviour.com
+<h1>ARTIST SECTION</h1>
+<B> HERE WE CRATE AN API SO THAT ONLY A USER WITH ROLE 'ARTIST' CAN CREATE MUSIC</B>
+
+1) FIRST WE MAKE A FILE IN ROUTES 'music.routes.js'

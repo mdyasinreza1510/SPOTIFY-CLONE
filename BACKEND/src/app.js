@@ -1,6 +1,7 @@
 const express = require ('express');
 const cookieParser = require ('cookie-parser');
 const authRoutes= require ('./routes/auth.routes')
+const musicroutes= require ('./routes/music.routes')
 
 
 
@@ -16,6 +17,7 @@ app.use(express.json());//taki req.body se data aaske
 
         //api defination
 app.use("/api/auth/",authRoutes);
+app.use("api/music",musicroutes);
 
 
 

@@ -18,7 +18,7 @@ async function userRegister(req, res) {
             { email },
 
         ]
-    })
+    }) //
 
     if (useralreadyexist) {
         return res.status(409).json({ messege: "user already exist" })
@@ -27,7 +27,7 @@ async function userRegister(req, res) {
 const hash=await bcrypt.hash(password,10);//req.body se ane wale pass ko hash krrte hain
 
 
-
+    //were creating a a user data in the database
     const user = await userModel.create({
         username,
         email,
@@ -59,6 +59,8 @@ const hash=await bcrypt.hash(password,10);//req.body se ane wale pass ko hash kr
 }
 
 
+
+//NOW WELL MAKE A FEATURE FROM WHICH A USER CAN LOGIN WITH USERNAME,EMAIL,PHONE NO.
 
 
 module.exports= { userRegister }

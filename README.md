@@ -38,4 +38,25 @@ const ispasswordvalid =await bcrypt.compare(password, user.password);
 <h1>ARTIST SECTION</h1>
 <B> HERE WE CRATE AN API SO THAT ONLY A USER WITH ROLE 'ARTIST' CAN CREATE MUSIC</B>
 
-1) FIRST WE MAKE A FILE IN ROUTES 'music.routes.js'
+1) FIRT WECREATE A SCEMA FOR MUSIC in music.model.js
+```javascript
+const musicschema= new mongoose.Schema({
+    uri:{
+        type:String,
+        required:true 
+    },
+    title:{
+        type:String,
+        required:true,
+    },
+    artist:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"user",
+        required:true,
+    }
+
+})
+const musicModel= mongoose.model("music",musicschema);
+```
+2) FIRST WE MAKE A FILE IN ROUTES 'music.routes.js' where we create apis.
+3) THEN WE MAKE A FILE IN CONTROLLERS "music.controller.js" FOR API LOGIC

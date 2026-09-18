@@ -60,3 +60,4 @@ const musicModel= mongoose.model("music",musicschema);
 ```
 2) FIRST WE MAKE A FILE IN ROUTES 'music.routes.js' where we create apis.
 3) THEN WE MAKE A FILE IN CONTROLLERS "music.controller.js" FOR API LOGIC
+4) NOW WE GONNA CONNECT TO MAGE KIT FOR UPLOADING THE DATA 

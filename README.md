@@ -61,3 +61,22 @@ const musicModel= mongoose.model("music",musicschema);
 2) FIRST WE MAKE A FILE IN ROUTES 'music.routes.js' where we create apis.
 3) THEN WE MAKE A FILE IN CONTROLLERS "music.controller.js" FOR API LOGIC
 4) NOW WE GONNA CONNECT TO MAGE KIT FOR UPLOADING THE DATA 
+```javascript
+const ImageKitClient = new ImageKit({
+    privateKey:process.env.IMAGEKIT_PRIVATE_KEY
+})
+```
+5) WELL CREATE A FUNCTION FOR UPLOADING THE FILE
+```javascript
+async function uploadfile(file){
+    const result= await ImageKitClient.files.upload({
+        file:file, //actual image/song/pdf,
+        fileName:"music_" + Date.now(),
+        folder:"spotify-clone/music"
+        //ImageKit Dashboard me ye file jis folder me save hogi
+
+    })
+    return result;
+}
+```
+6) 

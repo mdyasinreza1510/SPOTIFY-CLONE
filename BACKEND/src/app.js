@@ -17,7 +17,7 @@ app.use(express.json());//taki req.body se data aaske
 
         //api defination
 app.use("/api/auth/",authRoutes);
-app.use("api/music",musicroutes);
+app.use("/api/music/",musicroutes);
 
 
 

@@ -91,3 +91,49 @@ async function uploadfile(file){
         artist:decoded.id
     })
 ```
+<h1>ALBUM CREATION</h1>
+
+1) FIRST WE MAKE A MODEL FOR ALBUM
+```javascript
+const albumSchema = new mongoose.Schema({
+    title:{
+        type:String,
+        required:true,
+    },
+    musics:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"music"
+    }],
+    artist:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"user",
+        required:true,
+    }
+})
+
+```
+2) AS THIS FEATURE DOESNT REQUIRE TO HAVE A PERTICULAR CONTROLLER FILES WE GONNA WRITE ITS LOGIC IN THE MUSIC.CONTROLLER AS WELL.
+
+- FIRST WE GET THE TOKEN FROM THE BODY/FRONTEND TO CHECK WHETHER IS A VALID USER OR NOT 
+```javascript
+const token = req.cokkies.token;
+
+if(!token){
+    return res.status(401).json({
+        messege:"invalid token"
+    })
+}
+
+```
+- THEN WE VERIFY THE IF THE ROLE IN TOKEN DEFINES AN ARTIST OR A NORMAL USER 
+
+```javascript
+ const decoded = jwt.verify(token ,process.env.JWT_SECERET)
+
+    if (decoded.role != "artist"){
+        return res.status(401).json({
+        messege:"not an artist so you cannot create an album"
+    })
+    }
+
+```

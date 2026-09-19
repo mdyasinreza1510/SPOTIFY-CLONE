@@ -79,4 +79,15 @@ async function uploadfile(file){
     return result;
 }
 ```
-6) 
+6) NOW WE'LL CREATE  A VAR RESULT WHERE WE STORE THE VLUES WE GOT FROM THE IMAGEKIT SERVER. WE PASED THE BUFFER DIRECTLY TO THE FUNCTION SO THAT IMAGEKIT CAN CONVERT THE URL  
+```javascript
+   const result = await uploadfile(file.buffer.toString("base64"));
+```
+7) HERE WE SAVED THE MUSIC IN OUR DATABASE
+```javascript
+ const music = await musicModel.create({
+        uri:result.url,
+        title,
+        artist:decoded.id
+    })
+```

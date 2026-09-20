@@ -10,18 +10,18 @@ const {uploadfile} = require("../services/storage.service");
 async function createMusic(req,res){
     
     //FIRST WE'LL GET THE TOKEN FROM THE USER SIDE
-    const token= req.cookies.token;
-    if(!token){
-        return res.status(401).json({messege:"invalid token"})
-    }
+    // const token= req.cookies.token;
+    // if(!token){
+    //     return res.status(401).json({messege:"invalid token"})
+    // }
 
-    try{//VERIFYING THE TOKEN 
-        const decoded=jwt.verify(token,process.env.JWT_SECRET);
+    // try{//VERIFYING THE TOKEN 
+    //     const decoded=jwt.verify(token,process.env.JWT_SECRET);
 
-        //CHECKING IF THE ROLE IN THE TOKEN IS SAME OR NOT 
-        if (decoded.role !== "artist"){
-             return res.status(401).json({messege:"youre not an artist"})
-        }
+    //     //CHECKING IF THE ROLE IN THE TOKEN IS SAME OR NOT 
+    //     if (decoded.role !== "artist"){
+    //          return res.status(401).json({messege:"youre not an artist"})
+    //     }
 
 
 
@@ -53,10 +53,10 @@ async function createMusic(req,res){
     })
 
 
-    }catch (err){
+//     }catch (err){
         
-        return res.status(403).json({messege:"bhago"})
-    }
+//         return res.status(403).json({messege:"bhago"})
+//     }
 
     
 }
@@ -66,25 +66,25 @@ async function createMusic(req,res){
 
 async function CreateAlbum(req,res){
 
-const token = req.cookies.token;
+// const token = req.cookies.token;
 
-if(!token){
-    return res.status(401).json({
-        messege:"invalid token"
-    })
-}
+// if(!token){
+//     return res.status(401).json({
+//         messege:"invalid token"
+//     })
+// }
 
 
-try{
-    // verify token
-     const decoded=jwt.verify(token,process.env.JWT_SECRET);
+// try{
+//     // verify token
+//      const decoded=jwt.verify(token,process.env.JWT_SECRET);
 
-    if (decoded.role != "artist"){
-        return res.status(401).json({
-        messege:"not an artist so you cannot create an album"
-    })
+//     if (decoded.role != "artist"){
+//         return res.status(401).json({
+//         messege:"not an artist so you cannot create an album"
+//     })
     
-    }
+//     }
  // ROLE == ARTIST
 
  const {title , mymusic} = req.body;
@@ -100,15 +100,12 @@ try{
   })
 
 } 
-catch(err){
-      console.error(err);
-    return res.status(401).json({
-        messege:"UNAUTHORIZED"
-    })
-}
+// catch(err){
+//       console.error(err);
+//     return res.status(401).json({
+//         messege:"UNAUTHORIZED"
+//     })
 
 
 
-
-}
 module.exports={createMusic, CreateAlbum}

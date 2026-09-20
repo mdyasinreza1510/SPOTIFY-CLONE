@@ -137,3 +137,73 @@ if(!token){
     }
 
 ```
+- WHEN THE TOKEN VERIFIES WE GO AHEAD AND SAVE THE SONMG IN DB
+```javascript
+const {title , mymusic} = req.body;
+  const album = await albumModel.create({
+    title,
+    artist:decoded.id,
+    musics:mymusic, 
+  })
+
+  res.status(201).json({
+    messege:"ALBUM CREATED SUCESSFULLY",
+    album
+  })
+
+```
+
+<h1>USE OF MIDDLEWARE  </h1>
+
+1) AS WEVE SEEN WE HAVE TO WRITE CODE FOR GETTING TOKEN,VERIFYING IT , THEN CHECKING THE ROLE EVERY SINGLE TIME SO WE CREATE A MIDDLE WARE WHERE WE WRITE THE CODE FOR AUTHENTICATION
+
+- FIRST WE MAKE A 'MIDDLEWARE' FOLDER IN SRC
+- THEN WE MAKE A FILE " auth.middleware.js" FOR WRITING THE AUTH CODE
+
+```javascript
+const jwt = require('jsonwebtoken');
+
+async function authArtist (req,res,next){
+
+
+    const token = req.cookies.token;
+
+    if(!token){
+        return res.status(401).json({
+            messege:"token not found"
+        })
+    }
+
+    try{
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        
+        if(decoded.role !="artist"){
+            return res.status(403).json({
+            messege:"not an artist"
+        })
+
+        }
+
+        next() //ek mid.ware se req dusre mid.ware k jaaskeee fully verify hone k baad hahahahahaha.
+
+
+    } catch(err){
+         return res.status(401).json({
+            messege:"catch eror"
+        })
+    }
+
+}
+
+```
+
+- THEN WE REQUIRE THE MIDDLEWARE FILE IN THE  " ROUTES " like this
+```javascript
+const authMiddleware= require ("../middlewares/auth.middleware")
+
+// AND USE LIKE THIS
+
+router.post('/album',authMiddleware.authArtist,musicController.CreateAlbum)
+
+```
+- NOW WE CAN REMOVE THE AUTH CODES FROM THE CONTROLLER FILE

@@ -206,4 +206,4 @@ const authMiddleware= require ("../middlewares/auth.middleware")
 router.post('/album',authMiddleware.authArtist,musicController.CreateAlbum)
 
 ```
-- NOW WE CAN REMOVE THE AUTH CODES FROM THE CONTROLLER FILE
+- NOW WE CAN REMOVE THE AUTH CODES FROM THE CONTROLLER FILE 

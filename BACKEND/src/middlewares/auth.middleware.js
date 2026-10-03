@@ -21,6 +21,12 @@ async function authArtist (req,res,next){
 
         }
 
+        /** YAHA HAM RE.USER  EK NAYI PROPERTY BANA RHE HAIN JIS KI VALUE ME DECODED HOGI, TO JAB JAISE HI REQ MIDD.WARE SE CONFIRM HOKE AGE JAYEGI (IN ROUTES ,EG:CREATEMUSIC) AND HM US PROPERTY KO CONTROLLER ME ACCES KRSKTE HAIN   */
+        req.user=decoded;
+
+
+
+
 
         //yaha pe next ka use hmne isliye kiya hai ki jab ye sare logic pass hojayenge  tb req next middle ware pe chli jayegi from  "authMiddleware.authArtist -> musicController.CreateAlbum (in the routes)
         next();

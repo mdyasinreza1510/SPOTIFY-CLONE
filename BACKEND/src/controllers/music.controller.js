@@ -36,11 +36,15 @@ async function createMusic(req,res){
 /* vvip :- imagekit me hmaesha file ka buffer jayega string format me  */
 
 
+    
     //ab url milne k baad music ka model banyenge jsime url,title,artist ki id hogi;
+
+    /* KYU KI AB DECODED TO YAHA PE NAHI HAI ISILIYE HMNE MIDWARE ME JO REQ.USER=DECODED PROP BANAYI THI USKO ACCES KRSKTE HAIN JAHA JAHA DECODED KI NEED HAI YASSSSU */
+
     const music = await musicModel.create({
         uri:result.url,
         title,
-        artist:decoded.id
+        artist:req.user.id
     })
     res.status(201).json({
         messege:"music created sucessfully",
@@ -90,21 +94,21 @@ async function CreateAlbum(req,res){
  const {title , mymusic} = req.body;
   const album = await albumModel.create({
     title,
-    artist:decoded.id,
+    artist:req.user.id,
     musics:mymusic, 
   })
 
   res.status(201).json({
     messege:"ALBUM CREATED SUCESSFULLY",
-    album
+    album:{
+        id:album._id,
+        title:album.title,
+        artist:album.artist,
+        musics:album.musics
+    }
   })
 
 } 
-// catch(err){
-//       console.error(err);
-//     return res.status(401).json({
-//         messege:"UNAUTHORIZED"
-//     })
 
 
 

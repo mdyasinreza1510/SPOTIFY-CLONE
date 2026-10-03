@@ -155,7 +155,7 @@ const {title , mymusic} = req.body;
 
 <h1>USE OF MIDDLEWARE  </h1>
 
-1) AS WEVE SEEN WE HAVE TO WRITE CODE FOR GETTING TOKEN,VERIFYING IT , THEN CHECKING THE ROLE EVERY SINGLE TIME SO WE CREATE A MIDDLE WARE WHERE WE WRITE THE CODE FOR AUTHENTICATION
+1) AS WEVE SEEN WE HAVE TO WRITE CODE FOR GETTING TOKEN,VERIFYING IT , THEN CHECKING THE ROLE EVERY SINGLE TIME SO WE CREATE A MIDDLEWARE WHERE WE WRITE THE CODE FOR AUTHENTICATION
 
 - FIRST WE MAKE A 'MIDDLEWARE' FOLDER IN SRC
 - THEN WE MAKE A FILE " auth.middleware.js" FOR WRITING THE AUTH CODE
@@ -184,7 +184,7 @@ async function authArtist (req,res,next){
 
         }
 
-        next() //ek mid.ware se req dusre mid.ware k jaaskeee fully verify hone k baad hahahahahaha.
+        next() //ek mid.ware se req dusre mid.ware me jaaskeee fully verify hone k baad hahahahahaha.
 
 
     } catch(err){
@@ -207,3 +207,10 @@ router.post('/album',authMiddleware.authArtist,musicController.CreateAlbum)
 
 ```
 - NOW WE CAN REMOVE THE AUTH CODES FROM THE CONTROLLER FILE 
+- SO ALL THE CODES HAS REMOVED FROM THE CONTROLLERS FILE NUT WE NEED THE DECODED VALUE FOR ACCESING THE ID,TITLE etc. SO THE SOLUTION FOR THIS IS WE CREATE A PRPERTY 
+```javascript
+
+req.user = decoded;
+
+```
+AND IN THE CONTROLLER WHEREVER WE NEED THE DECODED VALUES WE CAN JUST WRITE ' req.user.value' for example :- req.user.id;

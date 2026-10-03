@@ -108,8 +108,55 @@ async function CreateAlbum(req,res){
     }
   })
 
-} 
+}
 
 
 
-module.exports={createMusic, CreateAlbum}
+
+
+
+
+
+async function getAllMusic (req,res){
+
+    const musics= await musicModel.find();
+    res.status(200).json({
+        messege:"music fetched sucessfully",
+        musics:musics
+    })
+}
+
+
+
+
+
+
+async function getAllAlbums (req,res){
+// were using .select for getting only the title and artist values in the output (eg:- postman)
+    const albums= await albumModel.find().select(" title artist");
+    res.status(200).json({
+        messege:"albums fetched sucessfully",
+        albums:albums
+    })
+
+}
+
+
+
+
+
+async function getAlbumById(req,res){
+    //yaha hmne sbse se phle album ki id nikali aur find by id me pass kiya ab jab album fetch hogi to usme hme populate method ki wjh se srif artist ka username aur email dikhega 
+    const albumId= req.params.albumId;
+    const album = await albumModel.findById(albumId).populate("artist", "username email")
+
+    return res.status(200).json({
+        messege :"album fetched sucessfully",
+        album:album
+    })
+
+
+}
+
+
+module.exports={createMusic, CreateAlbum,getAllMusic,getAllAlbums, getAlbumById}

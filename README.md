@@ -214,3 +214,91 @@ req.user = decoded;
 
 ```
 AND IN THE CONTROLLER WHEREVER WE NEED THE DECODED VALUES WE CAN JUST WRITE ' req.user.value' for example :- req.user.id;
+
+<h1> LISTENING TO MUSIC </h1>
+
+- NOW WE GONNA CREATE AN API WHERE A USER CAN LISTEN TO ALL THE MUSICS CREATED IN THE SERVER
+
+1) FIRST WE CREATE A FUNCTION IN THE CONTROLLER 
+```javascript
+async function getAllMusic (req,res){
+
+    const musics= await musicModel.find();
+    res.status(200).json({
+        messege:"music fetched sucessfully",
+        musics:musics
+    })
+}
+
+```
+2) IF WE WANT TO GET ALL THE DETAIL OF THE ARTIST WE JUST HAVE TO ADD populate("artist") methos afetre find();
+
+```javascript
+  const musics= await musicModel.find().populate("artist");
+
+
+//for just the username and email
+    const musics= await musicModel.find().populate("artist","username email");
+
+```
+
+- NOW WE ADD AUTHENTICATION IN THE LISTENING MUSIC SECTION / ONLY USER CAN GET ALL THE MUSIC/ALBUM
+```javascript
+async function authuser(req,res,next){
+
+     const token = req.cookies.token;
+
+    if(!token){
+        return res.status(401).json({
+            messege:"token not found"
+        })
+    }
+
+    try{
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        
+        if(decoded.role !="user"){
+            return res.status(403).json({
+            messege:"not an user"
+        })
+
+        }
+
+        req.user=decoded;
+
+
+        next();
+
+    } catch(err){
+         return res.status(401).json({
+            messege:"catch eror"
+        })
+    
+}
+}
+
+```
+
+3) AFTER GETTING THE ALBUM WE FACE A PROBLEM WHERE SONGS DOESNT SHOW UP OR IF ALL THE SONGS LOAD IN THE ALBUM THE SYSTEM MAY HANG , SO THE SOLUTION IS, WE GONNA THE SELECT() METHOD IN WHILE GETTING THE ALBUM
+```javascript
+const albums= await albumModel.find().select(" title artist")
+//we only get title and artist and not the music
+
+```
+4) FOR ACCESING THE MUSIC WE CREATE ANOTHER API ' getAlbumById ' WHICH FIND A PERTICULAR ALBUM BY ITS ID
+
+```javascript
+async function getAlbumById(req,res){
+
+    const albumId= req.params.albumId;
+    const album = await albumModel.findById(albumId).populate("artist", "username email")
+
+    return res.status(200).json({
+        messege :"album fetched sucessfully",
+        album:album
+    })
+
+
+}
+
+```

@@ -302,3 +302,12 @@ async function getAlbumById(req,res){
 }
 
 ```
+
+5) WHEN ANYONE SEARCH FOR AN ALBUM AND WHEN IT LOADS ON THE SERVER THER WILL BE ALOT OF SONGS WHICH MAY CAUSE OVERLOADING IN THE SERVER  SO WE USE ' LIMIT() ' METHOD TO ONLY LOAD A REQUIRED NUMBER OF ITEMS 
+```javascript
+    const musics= await musicModel.find().limit(1).populate("artist","username email");
+    //only one music will be sown at a time
+
+```
+
+6) 

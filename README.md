@@ -310,4 +310,9 @@ async function getAlbumById(req,res){
 
 ```
 
-6) 
+6) TO SKIP A NUMBER OF SONG FROM STARTING WE USE SKIP() METHOD
+```javascript
+    const musics= await musicModel.find().skip(2);
+    //2 songs are skiped from starting
+
+```
